@@ -1,0 +1,18 @@
+.vjs-next-episode-container {
+  position: absolute;
+  width: 80%;
+  bottom: 3.5em;
+  left: 10%;
+  height: 30%;
+  max-height: 150px;
+  min-height: 40px;
+  box-shadow: 0px 4px 6px 0 rgba(0, 0, 0, 0.2);
+  border: solid 1px rgba(255, 255, 255, 0.2);
+  background-color: var(--main-color);
+
+  display: flex;                  /* establish flex container */
+  flex-direction: row;            /* default value; can be omitted */
+  flex-wrap: nowrap;              /* default value; can be omitted */
+  justify-content: none; /* switched from default (flex-start, see below) */
+  align-items: stretch;
+}
