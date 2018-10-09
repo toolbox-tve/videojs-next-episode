@@ -1,0 +1,86 @@
+{
+  "audioOnly": false,
+  "clip": false,
+  "contentType": "EPISODE",
+  "description": "Cuando el testigo en contra de Emily es asesinado,  Nick y Emily deberán probar su inocencia antes de que Tommy Gibbs y el departamento de policía la arresten.",
+  "duration": 2742,
+  "episode": 3,
+  "externalId": "16013397",
+  "flights": [
+    {
+      "flights": [
+        {
+          "start": "2017-11-10T08:00:00.000Z",
+          "end": "2020-11-03T06:00:00.000Z"
+        }
+      ],
+      "network": "crackle"
+    }
+  ],
+  "free": false,
+  "genres": ["Crimen"],
+  "hd": false,
+  "id": "t78wbi",
+  "images": [
+    {
+      "imageBin": null,
+      "image": "http://images-es-am.crackle.com/1/v/j0/wfryk_tne.jpg?ts=20171010213620",
+      "contentType": null,
+      "checksum": "0c5b9c0994da02a3a7415bdd60fb013fa31cb1af",
+      "uuid": null,
+      "unityImagePath": "/images/{clientId}/content/5a0583487251b34fee0b315c/0c5b9c0994da02a3a7415bdd60fb013fa31cb1af/0c5b9c0994da02a3a7415bdd60fb013fa31cb1af.png",
+      "type": "THUMB",
+      "size": {
+        "height": 224,
+        "ratio": 1.7857142857142858,
+        "width": 400
+      }
+    },
+    {
+      "imageBin": null,
+      "image": "http://images-es-az.crackle.com/profiles/channels/100002174/OneSheetImage_800x1200.jpg?ts=20171027103436",
+      "contentType": null,
+      "checksum": "20d2a0c61bdabb156ebf45664f532360aeb1423b",
+      "uuid": null,
+      "unityImagePath": "/images/{clientId}/content/5a0583487251b34fee0b315c/20d2a0c61bdabb156ebf45664f532360aeb1423b/20d2a0c61bdabb156ebf45664f532360aeb1423b.png",
+      "type": "POSTER",
+      "size": {
+        "height": 1200,
+        "ratio": 0.6666666666666666,
+        "width": 800
+      }
+    }
+  ],
+  "live": false,
+  "replay": false,
+  "networks": [
+    {
+      "name": "Crackle",
+      "embed": true,
+      "network": "crackle",
+      "contentId": "5a058348d4d08d2917e05283"
+    }
+  ],
+  "participants": {
+    "director": ["Oded Ruskin"],
+    "writer": ["Elaina Perpelitt"],
+    "cast": ["Stana Katic", "Patrick Heusinger", "Cara Theobold"]
+  },
+  "payPerView": false,
+  "ratings": ["PG", "R"],
+  "season": 1,
+  "serie": {
+    "_id": "5a2a5eaa7251b34fee13eb0a",
+    "id": "iw29eh",
+    "title": "Absentia",
+    "alternativeTitle": null
+  },
+  "title": "The Emily Show",
+  "entitlementTypes": ["deeplink", "media", "redirect"],
+  "urn": "urn:tve:crackle",
+  "streamCastConfig": {
+    "device": {
+      "chromecast": true
+    }
+  }
+}

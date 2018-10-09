@@ -1,10 +1,12 @@
 .vjs-next-episode-close-btn {
+  cursor: pointer;
   width: 4em;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
   text-align: center;
 }
 
 .vjs-next-episode-close-btn > span {
+  cursor: pointer;
   font-size: 2.8em;
   line-height: 1.4em;
 }

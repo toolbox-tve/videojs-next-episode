@@ -2,10 +2,18 @@ import videojs from 'video.js';
 import {version as VERSION} from '../package.json';
 import Container from './components/container';
 
+import contentExample from './contentExample.json';
+
 const Plugin = videojs.getPlugin('plugin');
 
 // Default options for the plugin.
-const defaults = {};
+const defaults = {
+  title: '',
+  secToEnd: 15,
+  posterImage: '',
+  url: '',
+  content: contentExample
+};
 
 /**
  * An advanced Video.js plugin. For more information on the API
@@ -37,8 +45,7 @@ class NextEpisode extends Plugin {
       this.player.addClass('vjs-next-episode');
     });
 
-
-    player.addChild('NextEpisode');
+    player.addChild('NextEpisode', this.options);
   }
 }
 

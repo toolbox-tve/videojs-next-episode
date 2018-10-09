@@ -6,6 +6,8 @@ const Component = videojs.getComponent('Component');
 class Summary extends Component {
   constructor(player, options) {
     super(player, options);
+
+    this.player_.on('timeupdate', this.onTimeUpdate.bind(this));
   }
 
   createEl() {
@@ -13,27 +15,52 @@ class Summary extends Component {
       className: `vjs-next-episode-summary`
     });
 
-    const spanCounter = dom.createEl('span', {
+    this.spanCounter = dom.createEl('span', {
       className: `vjs-next-episode-counter`
     });
 
-    spanCounter.innerHTML = 'Siguiente episodio en ';
+    this.spanCounter.innerHTML = this.localize('Next episode in '); /*'Siguiente episodio en ';*/
 
-    const spanColored = dom.createEl('span');
+    this.spanColored = dom.createEl('span');
 
-    spanColored.innerHTML = '8 segundos';
-    spanCounter.appendChild(spanColored);
+    this.spanColored.innerHTML = this.localize('{1} seconds', [this.player_.currentTime()]);
+    this.spanCounter.appendChild(this.spanColored);
 
-    const spanTitle = dom.createEl('span', {
+    this.spanTitle = dom.createEl('span', {
       className: `vjs-next-episode-title`
     });
 
-    spanTitle.innerHTML = 'Temporada 2 - Episodio 9 \"Dos sombreros\"';
+    this.spanTitle.innerHTML = this.generateTitle();
 
-    el.appendChild(spanCounter);
-    el.appendChild(spanTitle);
+    el.appendChild(this.spanCounter);
+    el.appendChild(this.spanTitle);
 
     return el;
+  }
+
+  generateTitle() {
+    let title, season, episode;
+
+    if (this.options_.title) {
+      title = `\"${this.options_.title}\"`;
+    }
+
+    if (this.options_.episode) {
+      episode = this.localize('Episode {1}', [this.options_.episode]);
+      episode += `${title ? ' ' : ''}`;
+    }
+
+    if (this.options_.season) {
+      season = this.localize('Season {1}', [this.options_.season]);
+      season += `${episode ? ' - ' : ''}`;
+    }
+
+    return `${season}${episode}${title}`;
+  }
+
+  onTimeUpdate() {
+    const timeToEnd = +(this.player_.duration() - this.player_.currentTime()).toFixed(0);
+    this.spanColored.innerHTML = this.localize('{1} seconds', [timeToEnd]);
   }
 }
 
