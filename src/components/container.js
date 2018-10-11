@@ -15,6 +15,7 @@ class Container extends Component {
     const image = content.images && content.images.find(img => img.type === 'THUMB');
     const imgUrl = image.image || content.images.length && content.images[0].image;
 
+    this.contentId = content.id;
     this.image = this.addChild('NextEpisodeImage', { imgUrl });
     this.summary = this.addChild('NextEpisodeSummary', {
       title: content.title,
@@ -46,6 +47,7 @@ class Container extends Component {
 
     if (!timeToEnd) {
       console.log('CHANGE SRC');
+      TbxPlayer.PlayerBuilder.changeSrcByContentId(this.contentId);
     }
   }
 }
