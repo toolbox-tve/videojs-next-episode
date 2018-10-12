@@ -14,9 +14,10 @@ class CloseButton extends ClickableComponent {
       className: `vjs-control vjs-button vjs-next-episode-close-btn`
     });
 
-    const span = dom.createEl('span');
+    const span = dom.createEl('span', {
+      className: 'vjs-icon-cancel'
+    });
 
-    span.innerHTML = 'X';
     el.appendChild(span);
     return el;
   }

@@ -4,11 +4,13 @@
 
 .vjs-next-episode-summary > span {
   position: absolute;
-  font-size: 2em;
-  margin-left: 1em;
+  margin-left: 20px;
+  margin-right: 45px;
 }
 
 .vjs-next-episode-counter {
+  margin-top: 5px;
+  margin-bottom: 10px;
   bottom: 40%;
 }
 

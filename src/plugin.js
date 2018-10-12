@@ -45,7 +45,7 @@ class NextEpisode extends Plugin {
       this.player.addClass('vjs-next-episode');
     });
 
-    player.addChild('NextEpisode', this.options);
+    this.container = player.addChild('NextEpisode', this.options);
   }
 }
 

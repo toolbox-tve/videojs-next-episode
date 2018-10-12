@@ -11,12 +11,14 @@ class Container extends Component {
   constructor(player, options) {
     super(player, options);
 
+    this.changeSrc = options.changeSrcCallback;
+
     const content = options.content;
     const image = content.images && content.images.find(img => img.type === 'THUMB');
     const imgUrl = image.image || content.images.length && content.images[0].image;
 
     this.contentId = content.id;
-    this.image = this.addChild('NextEpisodeImage', { imgUrl });
+    this.image = this.addChild('NextEpisodeImage', { imgUrl, parent: this });
     this.summary = this.addChild('NextEpisodeSummary', {
       title: content.title,
       episode: content.episode,
@@ -24,9 +26,11 @@ class Container extends Component {
     });
     this.closeButton = this.addChild('NextEpisodeCloseButton', { parent: this });
 
+    this.open = false;
     this.closed = false;
 
     this.player_.on('timeupdate', this.onTimeUpdate.bind(this));
+    this.player_.on('playerresize', this.onPlayerResize.bind(this));
   }
 
   createEl() {
@@ -37,18 +41,42 @@ class Container extends Component {
     return el;
   }
 
+  updateEl(options) {
+  }
+
   onTimeUpdate() {
     const timeToEnd = +(this.player_.duration() - this.player_.currentTime()).toFixed(0);
-    if (!this.closed && this.options_.secToEnd >= timeToEnd) {
+
+    if (!this.open && !this.closed && this.options_.secToEnd >= timeToEnd) {
       this.show();
-    } else {
+      this.onPlayerResize();
+    } else if (this.open && this.options_.secToEnd < timeToEnd) {
       this.hide();
     }
 
-    if (!timeToEnd) {
+    if (timeToEnd <= 1) {
       console.log('CHANGE SRC');
-      TbxPlayer.PlayerBuilder.changeSrcByContentId(this.contentId);
+      this.goToNextEpisode();
     }
+  }
+
+  show() {
+    super.show();
+    this.open = true;
+  }
+
+  hide() {
+    super.hide();
+    this.open = false;
+  }
+
+  onPlayerResize() {
+    this.image.resize();
+    this.summary.resize();
+  }
+
+  goToNextEpisode() {
+    this.changeSrc(this.contentId);
   }
 }
 
