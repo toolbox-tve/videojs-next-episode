@@ -1,6 +1,6 @@
 {
   "name": "videojs-next-episode",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Next episode plugin for videojs",
   "main": "dist/videojs-next-episode.cjs.js",
   "module": "dist/videojs-next-episode.es.js",
