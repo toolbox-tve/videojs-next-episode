@@ -23,6 +23,7 @@ class CloseButton extends ClickableComponent {
   }
 
   handleClick(event) {
+    // console.log('CLOSE BUTTON - HIDE');
     this.parent.closed = true;
     this.parent.hide();
   }

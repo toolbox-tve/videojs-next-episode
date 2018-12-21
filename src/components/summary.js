@@ -67,7 +67,7 @@ class Summary extends Component {
   }
 
   resize() {
-    console.log('TEXT RES');
+    // console.log('TEXT RES');
 
     const width = this.width();
 

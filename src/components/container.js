@@ -1,62 +1,76 @@
-import videojs from 'video.js';
+import videojs from "video.js";
 
-import './image';
-import './closeButton';
-import './summary';
+import "./image";
+import "./closeButton";
+import "./summary";
 
+const logger = videojs.log.createLogger('NextEpisode');
 const dom = videojs.dom || videojs;
-const Component = videojs.getComponent('Component');
+const Component = videojs.getComponent("Component");
 
 class Container extends Component {
   constructor(player, options) {
     super(player, options);
 
-    this.changeSrc = options.changeSrcCallback;
+    this.changeSrc = options.changeSrcCallback || null;
 
     const content = options.content;
-    const image = content.images && content.images.find(img => img.type === 'THUMB');
-    const imgUrl = image.image || content.images.length && content.images[0].image;
+    const image = content.images && content.images.find(img => img.type === "THUMB");
+    const imgUrl = image.image || (content.images.length && content.images[0].image);
 
     this.contentId = content.id;
-    this.image = this.addChild('NextEpisodeImage', { imgUrl, parent: this });
-    this.summary = this.addChild('NextEpisodeSummary', {
+    this.image = this.addChild("NextEpisodeImage", { imgUrl, parent: this });
+    this.summary = this.addChild("NextEpisodeSummary", {
       title: content.title,
       episode: content.episode,
       season: content.season
     });
-    this.closeButton = this.addChild('NextEpisodeCloseButton', { parent: this });
+    this.closeButton = this.addChild("NextEpisodeCloseButton", {
+      parent: this
+    });
 
     this.open = false;
     this.closed = false;
 
-    this.player_.on('timeupdate', this.onTimeUpdate.bind(this));
-    this.player_.on('playerresize', this.onPlayerResize.bind(this));
+    this.player_.on("timeupdate", this.onTimeUpdate.bind(this));
+    this.player_.on("playerresize", this.onPlayerResize.bind(this));
+    this.player_.on("ended", this.goToNextEpisode.bind(this));
   }
 
   createEl() {
-    const el = dom.createEl('div', {
+    const el = dom.createEl("div", {
       className: `vjs-next-episode-container vjs-hidden`
     });
 
     return el;
   }
 
-  updateEl(options) {
+  updateEl() {
+    const options = this.player_.tbx.pluginConfig.nextEpisode;
+    const content = options.content;
+    const image =
+      content.images && content.images.find(img => img.type === "THUMB");
+    const imgUrl =
+      image.image || (content.images.length && content.images[0].image);
+
+    this.image.updateEl({ imgUrl });
+    this.summary.updateEl({
+      title: content.title,
+      episode: content.episode,
+      season: content.season
+    });
   }
 
   onTimeUpdate() {
     const timeToEnd = +(this.player_.duration() - this.player_.currentTime()).toFixed(0);
 
     if (!this.open && !this.closed && this.options_.secToEnd >= timeToEnd) {
+      logger("CONTAINER - SHOW");
       this.show();
       this.onPlayerResize();
     } else if (this.open && this.options_.secToEnd < timeToEnd) {
+      logger("CONTAINER - HIDE");
       this.hide();
-    }
-
-    if (timeToEnd <= 1) {
-      console.log('CHANGE SRC');
-      this.goToNextEpisode();
     }
   }
 
@@ -76,10 +90,30 @@ class Container extends Component {
   }
 
   goToNextEpisode() {
-    this.changeSrc(this.contentId);
+    this.closed = true;
+    this.hide();
+
+    if (this.changeSrc) {
+      this.changeSrc(this.contentId);
+    } else if (this.player_.tbx) {
+      const options = this.player_.tbx.pluginConfig.nextEpisode;
+      const nextContent = options && options.content;
+
+      if (!nextContent) {
+        logger('No next content data found.');
+      }
+
+      return this.player_.changeSrc(nextContent.id)
+        .then(player => {
+          this.updateEl();
+          this.player_.one("play", (() => (this.closed = false)).bind(this));
+        });
+    }
+
+    logger.error("No valid config found.");
   }
 }
 
-videojs.registerComponent('NextEpisode', Container);
+videojs.registerComponent("NextEpisode", Container);
 
 export default Container;

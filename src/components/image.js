@@ -37,7 +37,7 @@ class Image extends ClickableComponent {
   }
 
   resize() {
-    console.log('IMAGE RES');
+    //console.log('IMAGE RES');
 
     if ((this.episodeImg.height + 2) !== this.parent.height()) {
       this.episodeImg.height = this.parent.height() - 2;
@@ -45,7 +45,10 @@ class Image extends ClickableComponent {
   }
 
   handleClick() {
-    console.log('HANDLES CLICK');
+    // console.log('HANDLES CLICK');
+    console.log('PLAY NEXT BUTTON - HIDE');
+    this.parent.closed = true;
+    this.parent.hide();
     this.parent.goToNextEpisode();
   }
 }
