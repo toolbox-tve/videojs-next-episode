@@ -16,7 +16,7 @@ class Container extends Component {
 
     const content = options.content;
     const image = content.images && content.images.find(img => img.type === "THUMB");
-    const imgUrl = image.image || (content.images.length && content.images[0].image);
+    const imgUrl = image.url || (content.images.length && content.images[0].url);
 
     this.contentId = content.id;
     this.image = this.addChild("NextEpisodeImage", { imgUrl, parent: this });
