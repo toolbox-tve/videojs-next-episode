@@ -51,7 +51,7 @@ class Container extends Component {
     const image =
       content.images && content.images.find(img => img.type === "THUMB");
     const imgUrl =
-      image.image || (content.images.length && content.images[0].image);
+      image.url || (content.images.length && content.images[0].url);
 
     this.image.updateEl({ imgUrl });
     this.summary.updateEl({
