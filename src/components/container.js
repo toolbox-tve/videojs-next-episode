@@ -103,7 +103,7 @@ class Container extends Component {
         logger('No next content data found.');
       }
 
-      return this.player_.changeSrc(nextContent.id)
+      return this.player_.changeSrc(nextContent.id, this.player_)
         .then(player => {
           this.updateEl();
           this.player_.one("play", (() => (this.closed = false)).bind(this));
