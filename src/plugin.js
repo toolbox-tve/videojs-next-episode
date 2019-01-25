@@ -47,6 +47,11 @@ class NextEpisode extends Plugin {
 
     this.container = player.addChild('NextEpisode', this.options);
   }
+
+  dispose() {
+    this.player.removeChild('NextEpisode');
+    super.dispose();
+  }
 }
 
 // Define default values for the plugin's `state` object here.

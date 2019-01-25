@@ -32,9 +32,24 @@ class Container extends Component {
     this.open = false;
     this.closed = false;
 
-    this.player_.on("timeupdate", this.onTimeUpdate.bind(this));
-    this.player_.on("playerresize", this.onPlayerResize.bind(this));
-    this.player_.on("ended", this.goToNextEpisode.bind(this));
+    // Binded function so we can .off them
+    this.bindedOnTimeUpdate = this.onTimeUpdate.bind(this);
+    this.bindedOnPlayerResize = this.onPlayerResize.bind(this);
+    this.bindedOnGoToNextEpisode = this.goToNextEpisode.bind(this);
+
+    this.player_.on("timeupdate", this.bindedOnTimeUpdate);
+    this.player_.on("playerresize", this.bindedOnPlayerResize);
+    this.player_.on("ended", this.bindedOnGoToNextEpisode);
+  }
+
+  dispose() {
+    if (this && this.player_) {
+      this.player_.off("timeupdate", this.bindedOnTimeUpdate);
+      this.player_.off("playerresize", this.bindedOnPlayerResize);
+      this.player_.off("ended", this.bindedOnGoToNextEpisode);
+    }
+
+    super.dispose();
   }
 
   createEl() {

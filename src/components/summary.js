@@ -9,7 +9,17 @@ class Summary extends Component {
 
     this.lastWidth = 0;
     this.parent = options.parent;
-    this.player_.on('timeupdate', this.onTimeUpdate.bind(this));
+
+    // Binded function so we can .off them
+    this.bindedOnTimeUpdate = this.onTimeUpdate.bind(this);
+    this.player_.on('timeupdate', this.bindedOnTimeUpdate);
+  }
+
+  dispose() {
+    if (this && this.player_) {
+      this.player_.off('timeupdate', this.bindedOnTimeUpdate);
+    }
+    super.dispose();
   }
 
   createEl() {
