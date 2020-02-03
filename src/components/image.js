@@ -12,16 +12,16 @@ class Image extends ClickableComponent {
 
   createEl() {
     const el = dom.createEl('div', {
-      className: `vjs-next-episode-image-div`
+      className: 'vjs-next-episode-image-div'
     });
 
     this.playIcon = dom.createEl('span', {
-      className: `vjs-icon-play-circle`
+      className: 'vjs-icon-play-circle'
     });
 
     this.episodeImg = dom.createEl('img', {
       src: this.options_.imgUrl,
-      className: `vjs-next-episode-image`
+      className: 'vjs-next-episode-image'
     });
 
     el.appendChild(this.playIcon);
@@ -37,16 +37,12 @@ class Image extends ClickableComponent {
   }
 
   resize() {
-    //console.log('IMAGE RES');
-
     if ((this.episodeImg.height + 2) !== this.parent.height()) {
       this.episodeImg.height = this.parent.height() - 2;
     }
   }
 
   handleClick() {
-    // console.log('HANDLES CLICK');
-    console.log('PLAY NEXT BUTTON - HIDE');
     this.parent.closed = true;
     this.parent.hide();
     this.parent.goToNextEpisode();
@@ -55,4 +51,4 @@ class Image extends ClickableComponent {
 
 videojs.registerComponent('NextEpisodeImage', Image);
 
-export default Container;
+export default Image;

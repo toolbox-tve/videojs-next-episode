@@ -1,8 +1,7 @@
 import videojs from 'video.js';
 import {version as VERSION} from '../package.json';
-import Container from './components/container';
-
 import contentExample from './contentExample.json';
+import './components/container';
 
 const Plugin = videojs.getPlugin('plugin');
 
