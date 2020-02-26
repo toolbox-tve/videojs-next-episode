@@ -92,6 +92,16 @@ class Container extends Component {
   show() {
     super.show();
     this.open = true;
+
+    // When next-episode panel is shown, trigger a 'nextepisodeexitonclose'
+    // To prepare any plugin related with external events to trigger
+    // the corresponding event when the player instance closes
+
+    // This status should be cancelled if 'nextepisodecontinue' or 'nextepisodeexit' is triggered
+    const options = this.player_.tbx.pluginConfig.nextEpisode;
+    const nextContent = options && options.content;
+
+    this.player_.trigger('nextepisodeexitonclose', {content: nextContent});
   }
 
   hide() {
@@ -108,21 +118,23 @@ class Container extends Component {
     this.closed = true;
     this.hide();
 
+    const options = this.player_.tbx.pluginConfig.nextEpisode;
+    const nextContent = options && options.content;
+
     if (this.changeSrc) {
+      this.player_.trigger('nextepisodecontinue', {content: nextContent});
       this.changeSrc(this.contentId);
     } else if (this.player_.tbx) {
-      const options = this.player_.tbx.pluginConfig.nextEpisode;
-      const nextContent = options && options.content;
-
       if (!nextContent) {
         logger('No next content data found.');
+      } else {
+        this.player_.trigger('nextepisodecontinue', {content: nextContent});
+        return this.player_.changeSrc(nextContent.id, this.player_)
+          .then(player => {
+            this.updateEl();
+            this.player_.one('play', (() => (this.closed = false)));
+          });
       }
-
-      return this.player_.changeSrc(nextContent.id, this.player_)
-        .then(player => {
-          this.updateEl();
-          this.player_.one('play', (() => (this.closed = false)));
-        });
     }
 
     logger.error('No valid config found.');
