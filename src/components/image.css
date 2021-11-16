@@ -1,0 +1,11 @@
+.vjs-icon-play-circle {
+  position: absolute;
+  font-size: 60px;
+}
+
+.vjs-next-episode-image-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

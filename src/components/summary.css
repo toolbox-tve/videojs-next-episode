@@ -1,0 +1,23 @@
+.vjs-next-episode-summary {
+  flex-grow: 1;
+}
+
+.vjs-next-episode-summary > span {
+  position: absolute;
+  margin-left: 20px;
+  margin-right: 45px;
+}
+
+.vjs-next-episode-counter {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  bottom: 40%;
+}
+
+.vjs-next-episode-counter > span {
+  color: orangered;
+}
+
+.vjs-next-episode-title {
+  bottom: 10%;
+}
