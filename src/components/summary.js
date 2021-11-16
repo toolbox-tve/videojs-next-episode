@@ -24,14 +24,15 @@ class Summary extends Component {
 
   createEl() {
     const el = dom.createEl('div', {
-      className: `vjs-next-episode-summary`
+      className: 'vjs-next-episode-summary'
     });
+
     this.spanCounter = dom.createEl('span', {
-      className: `vjs-next-episode-counter`
+      className: 'vjs-next-episode-counter'
     });
     this.spanColored = dom.createEl('span');
     this.spanTitle = dom.createEl('span', {
-      className: `vjs-next-episode-title`
+      className: 'vjs-next-episode-title'
     });
 
     this.spanCounter.innerHTML = this.localize('Next episode in ');
@@ -52,7 +53,9 @@ class Summary extends Component {
   }
 
   generateTitle() {
-    let title, season, episode;
+    let title;
+    let season;
+    let episode;
 
     if (this.options_.title) {
       title = `\"${this.options_.title}\"`;
@@ -73,6 +76,7 @@ class Summary extends Component {
 
   onTimeUpdate() {
     const timeToEnd = +(this.player_.duration() - this.player_.currentTime()).toFixed(0);
+
     this.spanColored.innerHTML = this.localize('{1} seconds', [timeToEnd]);
   }
 

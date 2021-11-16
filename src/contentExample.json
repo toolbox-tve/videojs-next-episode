@@ -24,7 +24,7 @@
   "images": [
     {
       "imageBin": null,
-      "image": "http://images-es-am.crackle.com/1/v/j0/wfryk_tne.jpg?ts=20171010213620",
+      "url": "http://images-es-am.crackle.com/1/v/j0/wfryk_tne.jpg?ts=20171010213620",
       "contentType": null,
       "checksum": "0c5b9c0994da02a3a7415bdd60fb013fa31cb1af",
       "uuid": null,
@@ -38,7 +38,7 @@
     },
     {
       "imageBin": null,
-      "image": "http://images-es-az.crackle.com/profiles/channels/100002174/OneSheetImage_800x1200.jpg?ts=20171027103436",
+      "url": "http://images-es-az.crackle.com/profiles/channels/100002174/OneSheetImage_800x1200.jpg?ts=20171027103436",
       "contentType": null,
       "checksum": "20d2a0c61bdabb156ebf45664f532360aeb1423b",
       "uuid": null,

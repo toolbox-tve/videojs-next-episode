@@ -11,7 +11,7 @@ class CloseButton extends ClickableComponent {
 
   createEl() {
     const el = dom.createEl('div', {
-      className: `vjs-control vjs-button vjs-next-episode-close-btn`
+      className: 'vjs-control vjs-button vjs-next-episode-close-btn'
     });
 
     const span = dom.createEl('span', {
